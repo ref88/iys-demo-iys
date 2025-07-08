@@ -1,4 +1,4 @@
-# RefuTree VMS - Development Notes
+# Nocto VMS - Development Notes
 
 ## Project Overview
 Refugee Management System built with React + Vite + Tailwind CSS

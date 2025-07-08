@@ -1,4 +1,4 @@
-# RefuTree VMS - Vluchtelingen Management Systeem
+# Nocto VMS - Vluchtelingen Management Systeem
 
 Een professioneel vluchtelingen management systeem gebouwd met React, Tailwind CSS en moderne web technologieën.
 
@@ -41,7 +41,7 @@ Een professioneel vluchtelingen management systeem gebouwd met React, Tailwind C
 ```bash
 # Clone het project
 git clone [repository-url]
-cd RefuTree
+cd Nocto
 
 # Installeer dependencies
 npm install
@@ -174,9 +174,9 @@ Dit project is gelicenseerd onder de MIT License.
 ## 📞 Support
 
 Voor vragen of ondersteuning, neem contact op via:
-- Email: support@refutree.nl
+- Email: support@nocto.nl
 - GitHub Issues: [Repository Issues]
 
 ---
 
-**RefuTree VMS** - Professioneel vluchtelingen management voor een betere wereld 🌍 
+**Nocto VMS** - Professioneel vluchtelingen management voor een betere wereld 🌍 

@@ -35,12 +35,12 @@ const html = `
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Debug RefuTree Data</title>
+    <title>Debug Nocto Data</title>
 </head>
 <body>
-    <h1>RefuTree Data Debug</h1>
+    <h1>Nocto Data Debug</h1>
     <script>
-        console.log('=== RefuTree Data Debug ===');
+        console.log('=== Nocto Data Debug ===');
         
         const STORAGE_KEYS = {
           RESIDENTS: 'vms_residents',
