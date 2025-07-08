@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug RefuTree Data</title>
+</head>
+<body>
+    <h1>RefuTree Data Debug</h1>
+    <div id="output"></div>
+    <script>
+        console.log('=== RefuTree Data Debug ===');
+        
+        const STORAGE_KEYS = {
+          RESIDENTS: 'vms_residents',
+          LEAVE_REQUESTS: 'vms_leave_requests',
+          DOCUMENTS: 'vms_documents',
+          NOTIFICATIONS: 'vms_notifications',
+          SHIFTS: 'vms_shifts',
+          INCIDENTS: 'vms_incidents',
+          LABELS: 'vms_labels',
+          AUDIT_LOGS: 'vms_audit_logs',
+          USER: 'vms_user'
+        };
+        
+        const output = document.getElementById('output');
+        let html = '<h2>LocalStorage Data:</h2>';
+        
+        Object.entries(STORAGE_KEYS).forEach(([key, storageKey]) => {
+            const data = localStorage.getItem(storageKey);
+            const parsed = data ? JSON.parse(data) : null;
+            console.log(key + ':', parsed);
+            html += `<p><strong>${key}:</strong> ${parsed ? JSON.stringify(parsed, null, 2) : 'No data'}</p>`;
+        });
+        
+        // Show specific residents data
+        const residents = localStorage.getItem('vms_residents');
+        if (residents) {
+            const parsed = JSON.parse(residents);
+            console.log('Total residents:', parsed.length);
+            console.log('CNO residents:', parsed.filter(r => r.locationType === 'CNO').length);
+            console.log('OEKRAINE residents:', parsed.filter(r => r.locationType === 'OEKRAINE').length);
+            
+            html += '<h2>Residents Summary:</h2>';
+            html += `<p>Total residents: ${parsed.length}</p>`;
+            html += `<p>CNO residents: ${parsed.filter(r => r.locationType === 'CNO').length}</p>`;
+            html += `<p>OEKRAINE residents: ${parsed.filter(r => r.locationType === 'OEKRAINE').length}</p>`;
+        } else {
+            console.log('No residents data found in localStorage');
+            html += '<p>No residents data found in localStorage</p>';
+        }
+        
+        output.innerHTML = html;
+    </script>
+</body>
+</html>
