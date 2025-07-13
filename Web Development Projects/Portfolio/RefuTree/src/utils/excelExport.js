@@ -1,4 +1,4 @@
-// 📊 Excel Export Utilities for RefuTree VMS Analytics
+// 📊 Excel Export Utilities for Nocto VMS Analytics
 // Provides comprehensive Excel export functionality for various analytics views
 
 // 🧮 Utility function to calculate age from birth date
@@ -35,7 +35,7 @@ export const exportCapacityData = (residents, locationType) => {
   // Create CSV content
   const csvContent = [
     // Header
-    ['RefuTree VMS - Capaciteit Dashboard'],
+    ['Nocto VMS - Capaciteit Dashboard'],
     ['Locatie:', locationType === 'CNO' ? 'CNO' : 'Oekraïne'],
     ['Gegenereerd op:', new Date().toLocaleString('nl-NL')],
     [''],
@@ -107,7 +107,7 @@ export const exportAgeGroupData = (residents, locationType) => {
   // Create CSV content
   const csvContent = [
     // Header
-    ['RefuTree VMS - Leeftijdsgroepen Analyse'],
+    ['Nocto VMS - Leeftijdsgroepen Analyse'],
     ['Locatie:', locationType === 'CNO' ? 'CNO' : 'Oekraïne'],
     ['Gegenereerd op:', new Date().toLocaleString('nl-NL')],
     [''],
@@ -208,7 +208,7 @@ export const exportSchoolData = (residents, locationType) => {
   // Create CSV content
   const csvContent = [
     // Header
-    ['RefuTree VMS - School Tracker'],
+    ['Nocto VMS - School Tracker'],
     ['Locatie:', locationType === 'CNO' ? 'CNO' : 'Oekraïne'],
     ['Gegenereerd op:', new Date().toLocaleString('nl-NL')],
     [''],
@@ -288,7 +288,7 @@ export const exportCombinedReport = (residents, locationType) => {
   
   const csvContent = [
     // Header
-    ['RefuTree VMS - Volledig Analytics Rapport'],
+    ['Nocto VMS - Volledig Analytics Rapport'],
     ['Locatie:', locationType === 'CNO' ? 'CNO' : 'Oekraïne'],
     ['Gegenereerd op:', new Date().toLocaleString('nl-NL')],
     [''],
@@ -319,9 +319,9 @@ export const exportCombinedReport = (residents, locationType) => {
     
     // Contact information
     ['CONTACT INFORMATIE'],
-    ['Systeem: RefuTree VMS'],
+    ['Systeem: Nocto VMS'],
     ['Versie: 1.0.0'],
-    ['Support: support@refutree.nl']
+    ['Support: support@nocto.nl']
   ];
   
   return convertToCSV(csvContent);
@@ -361,7 +361,7 @@ export const downloadCSV = (csvContent, filename) => {
 export const exportMonthlyTrendsData = (residents, locationType, monthlyData) => {
   const csvContent = [
     // Header
-    ['RefuTree VMS - Maandelijkse Trends'],
+    ['Nocto VMS - Maandelijkse Trends'],
     ['Locatie:', locationType === 'CNO' ? 'CNO' : 'Oekraïne'],
     ['Gegenereerd op:', new Date().toLocaleString('nl-NL')],
     ['Periode:', '12 maanden historisch'],
@@ -416,7 +416,7 @@ export const exportMonthlyTrendsData = (residents, locationType, monthlyData) =>
     
     // Contact info
     ['CONTACT INFORMATIE'],
-    ['Systeem: RefuTree VMS'],
+    ['Systeem: Nocto VMS'],
     ['Module: Maandelijkse Trends'],
     ['Versie: 1.0.0']
   ];
@@ -428,31 +428,31 @@ export const exportMonthlyTrendsData = (residents, locationType, monthlyData) =>
 export const exportAnalytics = {
   capacity: (residents, locationType) => {
     const csvContent = exportCapacityData(residents, locationType);
-    const filename = `RefuTree_Capaciteit_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `Nocto_Capaciteit_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
     downloadCSV(csvContent, filename);
   },
   
   ageGroups: (residents, locationType) => {
     const csvContent = exportAgeGroupData(residents, locationType);
-    const filename = `RefuTree_Leeftijdsgroepen_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `Nocto_Leeftijdsgroepen_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
     downloadCSV(csvContent, filename);
   },
   
   school: (residents, locationType) => {
     const csvContent = exportSchoolData(residents, locationType);
-    const filename = `RefuTree_School_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `Nocto_School_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
     downloadCSV(csvContent, filename);
   },
   
   monthlyTrends: (residents, locationType, monthlyData) => {
     const csvContent = exportMonthlyTrendsData(residents, locationType, monthlyData);
-    const filename = `RefuTree_Maandelijks_Trends_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `Nocto_Maandelijks_Trends_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
     downloadCSV(csvContent, filename);
   },
   
   combined: (residents, locationType) => {
     const csvContent = exportCombinedReport(residents, locationType);
-    const filename = `RefuTree_Volledig_Rapport_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `Nocto_Volledig_Rapport_${locationType}_${new Date().toISOString().split('T')[0]}.csv`;
     downloadCSV(csvContent, filename);
   }
 };

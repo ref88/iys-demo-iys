@@ -1,21 +1,21 @@
 import React from 'react'
-import { AuthProvider } from './components/auth/AuthContext.jsx'
+import { SecureAuthProvider } from './components/auth/SecureAuthContext.jsx'
 import { NotificationProvider } from './contexts/NotificationContext.jsx'
 import { LocationProvider } from './contexts/LocationContext.jsx'
-import ProtectedRoute from './components/auth/ProtectedRoute.jsx'
+import SecureProtectedRoute from './components/auth/SecureProtectedRoute.jsx'
 import VMS from './components/features/VMS.jsx'
 
 function App() {
   return (
-    <AuthProvider>
+    <SecureAuthProvider>
       <NotificationProvider>
         <LocationProvider value={{ currentLocation: 'main' }}>
-          <ProtectedRoute>
+          <SecureProtectedRoute>
             <VMS />
-          </ProtectedRoute>
+          </SecureProtectedRoute>
         </LocationProvider>
       </NotificationProvider>
-    </AuthProvider>
+    </SecureAuthProvider>
   )
 }
 

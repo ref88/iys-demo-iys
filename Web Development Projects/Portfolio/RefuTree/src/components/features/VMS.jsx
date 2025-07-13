@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer, useCallback, createContext, useContext } from 'react';
-import { useAuth } from '../auth/AuthContext.jsx';
+import { useSecureAuth } from '../auth/SecureAuthContext.jsx';
 import { useLocation, LocationProvider } from '../../contexts/LocationContext.jsx';
 import DataService from '../../utils/dataService.js';
 import { 
@@ -1150,7 +1150,7 @@ const identifyWorkflowBottlenecks = (state) => {
 };
 
 const VMS = () => {
-  const { user, logout, hasPermission, getFilteredResidents } = useAuth();
+  const { user, logout, hasPermission } = useSecureAuth();
   const [state, dispatch] = useReducer(vmsReducer, initialState);
   const [activeView, setActiveView] = useState('dashboard');
   const [showLabelsManager, setShowLabelsManager] = useState(false);
