@@ -1,0 +1,425 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  }
+
+  /* Calm & Mature Animation Variables */
+  :root {
+    --ease-calm: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-gentle: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-swift: cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-instant: 150ms;
+    --duration-quick: 250ms;
+    --duration-gentle: 350ms;
+    --duration-calm: 400ms;
+    --duration-slow: 600ms;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700;
+    transition: all var(--duration-gentle) var(--ease-calm);
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300;
+    transition: all var(--duration-gentle) var(--ease-calm);
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200;
+    transition: all var(--duration-gentle) var(--ease-calm);
+  }
+
+  .card:hover {
+    @apply shadow-md;
+    transform: translateY(-1px);
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    transition: all var(--duration-gentle) var(--ease-calm);
+  }
+
+  /* Calm Transition Utilities */
+  .transition-calm {
+    transition: all var(--duration-calm) var(--ease-calm);
+  }
+
+  .transition-gentle {
+    transition: all var(--duration-gentle) var(--ease-gentle);
+  }
+
+  .transition-quick {
+    transition: all var(--duration-quick) var(--ease-calm);
+  }
+
+  .transition-colors-calm {
+    transition:
+      color var(--duration-gentle) var(--ease-calm),
+      background-color var(--duration-gentle) var(--ease-calm);
+  }
+
+  .transition-opacity-calm {
+    transition: opacity var(--duration-calm) var(--ease-calm);
+  }
+
+  .transition-transform-calm {
+    transition: transform var(--duration-gentle) var(--ease-calm);
+  }
+
+  /* Subtle Micro-interactions */
+  .hover-lift {
+    transition: all var(--duration-gentle) var(--ease-calm);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .hover-scale {
+    transition: transform var(--duration-gentle) var(--ease-calm);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  .hover-glow {
+    transition: box-shadow var(--duration-gentle) var(--ease-calm);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+
+  .focus-glow:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+
+  .press-effect {
+    transition: transform var(--duration-quick) var(--ease-calm);
+  }
+
+  .press-effect:active {
+    transform: scale(0.98);
+  }
+
+  /* View Transition Animations */
+  .animate-fade-in {
+    animation: fadeIn var(--duration-quick) var(--ease-swift);
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .view-transition {
+    animation: fadeIn var(--duration-quick) var(--ease-swift);
+  }
+
+  /* Performance optimizations */
+  .view-transition,
+  .animate-fade-in {
+    will-change: opacity, transform;
+  }
+
+  /* Anti-spam for rapid interactions */
+  .nav-button {
+    transition: all var(--duration-quick) var(--ease-swift);
+    pointer-events: auto;
+  }
+
+  .nav-button.transitioning {
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Gentle pulse effect voor urgente zaken */
+  .pulse-urgent {
+    animation: pulse-urgent 3s infinite var(--ease-calm);
+  }
+
+  @keyframes pulse-urgent {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.01);
+    }
+  }
+
+  /* Gentle pulse effect voor waarschuwingen */
+  .pulse-warning {
+    animation: pulse-warning 2.5s infinite var(--ease-calm);
+  }
+
+  @keyframes pulse-warning {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.005);
+    }
+  }
+
+  /* Smooth animations for modals */
+  .modal-enter {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  .modal-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition:
+      opacity var(--duration-calm) var(--ease-calm),
+      transform var(--duration-calm) var(--ease-calm);
+  }
+
+  .modal-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .modal-exit-active {
+    opacity: 0;
+    transform: scale(0.98);
+    transition:
+      opacity var(--duration-calm) var(--ease-calm),
+      transform var(--duration-calm) var(--ease-calm);
+  }
+
+  /* Backdrop animation */
+  .backdrop-enter {
+    opacity: 0;
+  }
+
+  .backdrop-enter-active {
+    opacity: 1;
+    transition: opacity var(--duration-calm) var(--ease-calm);
+  }
+
+  .backdrop-exit {
+    opacity: 1;
+  }
+
+  .backdrop-exit-active {
+    opacity: 0;
+    transition: opacity var(--duration-calm) var(--ease-calm);
+  }
+
+  /* Loading states */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+
+  .loading-dots::after {
+    content: '';
+    animation: loading-dots 1.5s infinite;
+  }
+
+  @keyframes loading-dots {
+    0%,
+    20% {
+      content: '.';
+    }
+    40% {
+      content: '..';
+    }
+    60%,
+    100% {
+      content: '...';
+    }
+  }
+
+  /* Focus states for accessibility */
+  .focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+  }
+
+  /* Cursor styles voor interactieve elementen */
+  .cursor-pointer {
+    cursor: pointer !important;
+  }
+
+  /* Hover effecten voor knoppen en interactieve elementen */
+  button:hover,
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  [role='button']:hover,
+  .interactive:hover {
+    cursor: pointer !important;
+  }
+
+  /* Voor select dropdowns */
+  select:hover {
+    cursor: pointer !important;
+  }
+
+  /* Date input calendar picker styling */
+  input[type='date'] {
+    position: relative;
+    color-scheme: light dark;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    @apply cursor-pointer;
+    color-scheme: light dark;
+    filter: invert(0);
+  }
+
+  .dark input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+
+  /* Force dark mode for date inputs in dark theme */
+  .dark input[type='date'] {
+    color-scheme: dark;
+  }
+
+  /* Firefox date picker styling */
+  input[type='date'] {
+    color-scheme: light dark;
+  }
+
+  .dark input[type='date'] {
+    color-scheme: dark;
+  }
+
+  /* Voor clickable cards en items */
+  .clickable:hover,
+  .resident-card:hover,
+  .shift-item:hover {
+    cursor: pointer !important;
+  }
+
+  /* Mobile responsive improvements */
+  @media (max-width: 768px) {
+    .mobile-padding {
+      @apply px-4;
+    }
+
+    .mobile-text-sm {
+      @apply text-sm;
+    }
+
+    .mobile-hide {
+      @apply hidden;
+    }
+
+    .mobile-full-width {
+      @apply w-full;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    .print-only {
+      display: block !important;
+    }
+
+    body {
+      font-size: 12pt;
+      line-height: 1.4;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .card {
+      @apply border-2 border-gray-900;
+    }
+
+    .btn-primary {
+      @apply bg-blue-900 border-2 border-blue-900;
+    }
+
+    .btn-secondary {
+      @apply bg-gray-900 text-white border-2 border-gray-900;
+    }
+  }
+
+  /* Toast animations */
+  .animate-slide-in-right {
+    animation: slide-in-right var(--duration-gentle) var(--ease-gentle);
+  }
+
+  @keyframes slide-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-out-right {
+    animation: slide-out-right var(--duration-gentle) var(--ease-calm);
+  }
+
+  @keyframes slide-out-right {
+    0% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+  }
+
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-urgent,
+    .pulse-warning,
+    .animate-pulse,
+    .animate-spin,
+    .animate-slide-in-right {
+      animation: none !important;
+    }
+
+    * {
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
