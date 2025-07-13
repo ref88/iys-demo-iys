@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Button from '../Button';
 
@@ -96,7 +95,7 @@ describe('Button Component', () => {
         🔥
       </span>
     );
-    render(<Button icon={TestIcon}>With Icon</Button>);
+    render(<Button icon={TestIcon} onClick={() => {}}>With Icon</Button>);
 
     expect(screen.getByTestId('test-icon')).toBeInTheDocument();
     expect(screen.getByText('With Icon')).toBeInTheDocument();

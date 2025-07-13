@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import {
   AdvancedErrorBoundary,
@@ -124,8 +123,10 @@ describe('ErrorBoundaries', () => {
 
     it('should show debug details in development', () => {
       // Mock development environment
-      const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'development';
+      const originalEnv = process?.env?.NODE_ENV;
+      if (process?.env) {
+        process.env.NODE_ENV = 'development';
+      }
 
       render(
         <AdvancedErrorBoundary>
@@ -135,7 +136,9 @@ describe('ErrorBoundaries', () => {
 
       expect(screen.getByText('Debug Details')).toBeInTheDocument();
 
-      process.env.NODE_ENV = originalEnv;
+      if (process?.env && originalEnv !== undefined) {
+        process.env.NODE_ENV = originalEnv;
+      }
     });
   });
 
@@ -179,10 +182,8 @@ describe('ErrorBoundaries', () => {
     });
 
     it('should include page name in error boundary name', () => {
-      const mockOnError = jest.fn();
-
       render(
-        <PageErrorBoundary pageName='Dashboard' onError={mockOnError}>
+        <PageErrorBoundary pageName='Dashboard'>
           <ThrowError />
         </PageErrorBoundary>
       );

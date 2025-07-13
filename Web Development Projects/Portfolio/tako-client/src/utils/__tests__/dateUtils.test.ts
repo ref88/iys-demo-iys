@@ -62,7 +62,7 @@ describe('dateUtils', () => {
 
     it('should return null for empty birth date', () => {
       expect(calculateAge('')).toBeNull();
-      expect(calculateAge(null)).toBeNull();
+      expect(calculateAge(null as any)).toBeNull();
     });
 
     it('should return null for invalid dates', () => {
@@ -128,7 +128,7 @@ describe('dateUtils', () => {
     it('should return true for future dates', () => {
       const futureDate = new Date();
       futureDate.setDate(futureDate.getDate() + 1);
-      const futureDateString = futureDate.toISOString().split('T')[0];
+      const futureDateString = futureDate.toISOString().split('T')[0] || '';
       expect(isFutureDate(futureDateString)).toBe(true);
     });
 
@@ -145,7 +145,7 @@ describe('dateUtils', () => {
     it('should calculate days until future date', () => {
       const futureDate = new Date();
       futureDate.setDate(futureDate.getDate() + 5);
-      const futureDateString = futureDate.toISOString().split('T')[0];
+      const futureDateString = futureDate.toISOString().split('T')[0] || '';
       expect(daysUntil(futureDateString)).toBe(5);
     });
 

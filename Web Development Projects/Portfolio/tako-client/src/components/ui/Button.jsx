@@ -7,10 +7,10 @@ const Button = ({
   size = 'md',
   disabled = false,
   loading = false,
-  onClick,
+  onClick = () => {},
   type = 'button',
   className = '',
-  icon: Icon,
+  icon: Icon = null,
   ...props
 }) => {
   const baseClasses =

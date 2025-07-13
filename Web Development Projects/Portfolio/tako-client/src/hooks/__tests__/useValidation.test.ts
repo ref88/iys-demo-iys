@@ -134,7 +134,7 @@ describe('useValidation Hook', () => {
     const futureDate = new Date();
     futureDate.setFullYear(futureDate.getFullYear() + 1);
     const futureResult = result.current.validateAge(
-      futureDate.toISOString().split('T')[0]
+      futureDate.toISOString().split('T')[0] || ''
     );
     expect(futureResult.valid).toBe(false);
     expect(futureResult.message).toBe(
