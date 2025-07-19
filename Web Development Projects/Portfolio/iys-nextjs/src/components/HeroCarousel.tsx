@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useCarousel } from '@/contexts/CarouselContext';
 
 interface Slide {
   id: number;
@@ -38,6 +39,12 @@ const slides: Slide[] = [
   },
   {
     id: 5,
+    image: '/images/sis_sage.jpg',
+    gradient: 'from-emerald-600/70 via-emerald-500/50 to-emerald-400/30',
+    alt: 'Sacred sage cleansing ritual'
+  },
+  {
+    id: 6,
     image: '/images/sis_heart.jpeg',
     gradient: 'from-purple-500/70 via-purple-400/50 to-purple-300/30',
     alt: 'Heart-centered healing'
@@ -46,7 +53,7 @@ const slides: Slide[] = [
 
 // Generate random particles on client side
 const generateRandomParticles = () => {
-  return Array.from({ length: 10 }, (_, i) => ({
+  return Array.from({ length: 25 }, (_, i) => ({
     id: i,
     delay: Math.random() * 5, // Random delay between 0-5 seconds
     position: { 
@@ -54,7 +61,8 @@ const generateRandomParticles = () => {
       left: Math.random() * 90 + 5 
     },
     duration: 12 + Math.random() * 8, // Random duration between 12-20 seconds
-    opacity: 0.3 + Math.random() * 0.4 // Random opacity between 0.3-0.7
+    opacity: 0.3 + Math.random() * 0.4, // Random opacity between 0.3-0.7
+    shouldFlicker: true // All particles can flicker when triggered
   }));
 };
 
@@ -69,14 +77,16 @@ const fireParticles = [
 ];
 
 export default function HeroCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const { currentSlide, setCurrentSlide } = useCarousel();
   const [showFireParticles, setShowFireParticles] = useState(false);
+  const [shouldFlicker, setShouldFlicker] = useState(false);
   const [particles, setParticles] = useState<Array<{
     id: number;
     delay: number;
     position: { top: number; left: number };
     duration: number;
     opacity: number;
+    shouldFlicker: boolean;
   }>>([]);
 
   // Initialize random particles on mount
@@ -88,12 +98,16 @@ export default function HeroCarousel() {
     const timer = setInterval(() => {
       // Fire particles activeren 2 seconden voor slide transitie
       setShowFireParticles(true);
+      setShouldFlicker(true);
       
       // Na 2 seconden: transitie naar volgende slide
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
         // Fire particles uitschakelen na transitie
-        setTimeout(() => setShowFireParticles(false), 1000);
+        setTimeout(() => {
+          setShowFireParticles(false);
+          setShouldFlicker(false);
+        }, 1000);
       }, 2000);
     }, 12000); // Rustiger - was 8000ms, nu 12000ms
 
@@ -126,7 +140,14 @@ export default function HeroCarousel() {
               top: `${particle.position.top}%`,
               left: `${particle.position.left}%`,
               opacity: particle.opacity,
-              animation: `particleFloat ${particle.duration}s ease-in-out infinite`,
+              animationName: shouldFlicker 
+                ? 'particleFloat, particleFlicker'
+                : 'particleFloat',
+              animationDuration: shouldFlicker 
+                ? `${particle.duration}s, 1s`
+                : `${particle.duration}s`,
+              animationTimingFunction: 'ease-in-out',
+              animationIterationCount: 'infinite',
               animationDelay: `${particle.delay}s`
             }}
           />
@@ -179,6 +200,7 @@ export default function HeroCarousel() {
                            slides[currentSlide].id === 2 ? 'linear-gradient(to right, transparent, rgba(180, 144, 48, 0.8))' :
                            slides[currentSlide].id === 3 ? 'linear-gradient(to right, transparent, rgba(62, 224, 207, 0.8))' :
                            slides[currentSlide].id === 4 ? 'linear-gradient(to right, transparent, rgba(244, 194, 194, 0.8))' :
+                           slides[currentSlide].id === 5 ? 'linear-gradient(to right, transparent, rgba(52, 168, 133, 0.8))' :
                            'linear-gradient(to right, transparent, rgba(150, 106, 162, 0.8))'
               }} />
             </div>
@@ -188,7 +210,7 @@ export default function HeroCarousel() {
 
       {/* Text Overlay */}
       <div className="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 z-[5] text-center w-[90%] max-w-[700px]">
-        <div className="bg-white/10 backdrop-blur-[20px] border border-white/20 rounded-[25px] p-8 md:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.2)]">
+        <div className="bg-white/10 backdrop-blur-[20px] border border-white/40 rounded-[25px] p-8 md:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.2)]">
           <motion.h1 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -213,7 +235,7 @@ export default function HeroCarousel() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.8 }}
-            className="text-white/90 text-lg md:text-xl italic font-dancing"
+            className="text-white/90 text-xl md:text-2xl italic font-dancing"
           >
             Waar jouw baarmoeder gehoord wordt.
           </motion.p>

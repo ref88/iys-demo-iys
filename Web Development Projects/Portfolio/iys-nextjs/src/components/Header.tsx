@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -17,22 +17,41 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and past 100px
+        setIsVisible(false);
+      } else {
+        // Scrolling up or at top
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-[100px] bg-white/10 backdrop-blur-[20px] border-b border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.1)] z-[1000] px-12 flex items-center justify-between">
-      {/* Logo */}
-      <Link href="/" className="flex-shrink-0">
-        <div className="relative w-[60px] h-[60px] bg-white/15 backdrop-blur-[15px] rounded-full border border-white/30 flex items-center justify-center">
-          <Image
-            src="/images/logo.png"
-            alt="Im Your SiS Logo"
-            width={36}
-            height={36}
-            style={{ width: 'auto', height: 'auto' }}
-            className="object-contain"
-          />
-        </div>
-      </Link>
+    <>
+      <motion.header 
+        initial={{ opacity: 1, y: 0 }}
+        animate={{ 
+          opacity: isVisible ? 1 : 0, 
+          y: isVisible ? 0 : -100 
+        }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="fixed top-0 left-0 right-0 h-[100px] bg-white/10 backdrop-blur-[20px] border-b border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.1)] z-[1000] px-12 flex items-center justify-between"
+      >
+        {/* Empty space for logo positioning */}
+        <div className="flex-shrink-0 w-[60px]"></div>
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex flex-1 items-center justify-center">
@@ -64,6 +83,29 @@ export default function Header() {
           Boek Jouw Afspraak
         </motion.a>
       </div>
+
+      {/* Final Logo with Option A: Glassmorphism Background - Smaller Size */}
+      <motion.div 
+        initial={{ opacity: 1, y: 0 }}
+        animate={{ 
+          opacity: isVisible ? 1 : 0, 
+          y: isVisible ? 0 : -100 
+        }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="fixed top-[50px] left-[50px] z-[1100]"
+      >
+        <Link href="/" className="block relative">
+          <div className="absolute w-[273px] h-[273px] bg-white/32 backdrop-blur-[12px] border border-white/65 rounded-full shadow-[0_6px_25px_rgba(0,0,0,0.12)] top-[16px] left-[26px]"></div>
+          <Image
+            src="/images/logo.png"
+            alt="Im Your SiS Logo"
+            width={329}
+            height={329}
+            style={{ objectFit: 'cover', transform: 'scale(1.164)' }}
+            className="rounded-full relative z-20"
+          />
+        </Link>
+      </motion.div>
 
       {/* Mobile menu button */}
       <div className="md:hidden">
@@ -111,6 +153,7 @@ export default function Header() {
           </div>
         </motion.div>
       )}
-    </header>
+    </motion.header>
+    </>
   );
 }

@@ -88,3 +88,18 @@ body {
     opacity: 0;
   }
 }
+
+@keyframes particleFlicker {
+  0%, 100% { 
+    opacity: 0.3;
+  }
+  25% { 
+    opacity: 0.8;
+  }
+  50% { 
+    opacity: 0.1;
+  }
+  75% { 
+    opacity: 0.9;
+  }
+}
