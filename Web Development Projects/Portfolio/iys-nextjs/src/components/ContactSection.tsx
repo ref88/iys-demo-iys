@@ -116,7 +116,7 @@ export default function ContactSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-libre font-bold mb-6" style={{color: '#674870'}}>
             Vragen?
           </h2>
-          <p className="text-lg font-dancing italic text-gray-600 mb-4">
+          <p className="text-xl font-dancing italic text-gray-600 mb-4">
             Laat je gegevens achter en ik neem zo snel mogelijk contact met je op
           </p>
           <div className="w-12 h-[1px] bg-gradient-to-r from-pink-300 to-transparent mx-auto" />
@@ -301,7 +301,7 @@ export default function ContactSection() {
                 
                 {/* Quote overlay */}
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-white font-dancing text-lg italic text-center drop-shadow-lg">
+                  <p className="text-white font-dancing text-xl italic text-center drop-shadow-lg">
                     &quot;In elke kaart ligt een boodschap van wijsheid&quot;
                   </p>
                 </div>

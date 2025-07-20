@@ -49,6 +49,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${dancingScript.variable} ${libreBaskerville.variable} antialiased bg-gradient-to-br from-black via-gray-900 to-black min-h-screen text-white`}
+        suppressHydrationWarning={true}
       >
         {children}
       </body>

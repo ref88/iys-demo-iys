@@ -1,8 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { useCarousel } from '@/contexts/CarouselContext';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
 
 interface QuoteProps {
   section: 'welcome' | 'services' | 'about' | 'contact';
@@ -40,23 +39,54 @@ const getDailyQuote = (section: keyof typeof quotePools): string => {
 
 export default function ContextualQuote({ section }: QuoteProps) {
   const [quote, setQuote] = useState<string>('');
-  const { currentSlide } = useCarousel();
+  const [isMounted, setIsMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  const { scrollYProgress } = useScroll({
+    target: isMounted ? containerRef : undefined,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [0, -125]);
 
   useEffect(() => {
     setQuote(getDailyQuote(section));
   }, [section]);
 
-  // Get particle color based on current carousel slide
+  // Get static gradient based on section instead of dynamic carousel
+  const getSectionGradient = () => {
+    const sectionGradients = {
+      welcome: 'from-purple-500/70 via-purple-400/50 to-purple-300/30',
+      services: 'from-teal-500/70 via-teal-400/50 to-teal-300/30', 
+      contact: 'from-pink-400/70 via-pink-300/50 to-pink-200/30',
+      about: 'from-emerald-600/70 via-emerald-500/50 to-emerald-400/30'
+    };
+    return sectionGradients[section] || 'from-purple-500/70 via-purple-400/50 to-purple-300/30';
+  };
+
+  const getSectionOverlay = () => {
+    const sectionOverlays = {
+      welcome: 'linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(150, 106, 162, 0.6), rgba(150, 106, 162, 0))',
+      services: 'linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(62, 224, 207, 0.6), rgba(62, 224, 207, 0))',
+      contact: 'linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(244, 194, 194, 0.6), rgba(244, 194, 194, 0))',
+      about: 'linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(52, 168, 133, 0.6), rgba(52, 168, 133, 0))'
+    };
+    return sectionOverlays[section] || 'linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(150, 106, 162, 0.6), rgba(150, 106, 162, 0))';
+  };
+
+  // Get particle color based on section
   const getParticleColor = () => {
     const colors = {
-      0: 'bg-purple-300/30',
-      1: 'bg-yellow-300/30', 
-      2: 'bg-teal-300/30',
-      3: 'bg-pink-300/30',
-      4: 'bg-emerald-300/30',
-      5: 'bg-purple-300/30'
+      welcome: 'bg-purple-300/40',
+      services: 'bg-teal-300/40',
+      contact: 'bg-pink-300/40',
+      about: 'bg-emerald-300/40'
     };
-    return colors[currentSlide as keyof typeof colors] || 'bg-purple-300/30';
+    return colors[section] || 'bg-purple-300/40';
   };
 
   // Get background image based on section
@@ -73,39 +103,49 @@ export default function ContextualQuote({ section }: QuoteProps) {
   if (!quote) return null;
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
-      {/* Subtle background particles */}
+    <section ref={containerRef} className="relative py-16 overflow-hidden">
+      {/* Static Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${getBackgroundImage()})` }}
+      />
+      
+      {/* Parallax Image Overlay */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div style={{ y }} className="absolute inset-0 scale-150">
+          <div 
+            className="w-full h-full bg-cover bg-center bg-no-repeat opacity-30"
+            style={{ backgroundImage: `url(${getBackgroundImage()})` }}
+          />
+        </motion.div>
+      </div>
+      
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/40" />
+      {/* Hero-style gradient overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-r ${getSectionGradient()}`} />
+      <div 
+        className="absolute inset-0" 
+        style={{ background: getSectionOverlay() }}
+      />
+
+      {/* Section-specific particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 12 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-pink-200/30 rounded-full"
+            className={`absolute w-1 h-1 ${getParticleColor()} rounded-full`}
             style={{
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 12}%`,
-              animation: `particleFloat ${8 + i * 2}s ease-in-out infinite`
+              top: `${15 + i * 8}%`,
+              left: `${5 + i * 8}%`,
+              animation: `particleFloat ${8 + i * 2}s ease-in-out infinite`,
+              animationDelay: `${i * 0.5}s`
             }}
           />
         ))}
       </div>
 
-      {/* Carousel-synced particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-1.5 h-1.5 ${getParticleColor()} rounded-full transition-all duration-2000 ease-in-out`}
-            style={{
-              top: `${20 + i * 15}%`,
-              right: `${10 + i * 12}%`,
-              animation: `particleFloat ${10 + i * 3}s ease-in-out infinite`,
-              animationDelay: `${i * 0.8}s`
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -116,17 +156,11 @@ export default function ContextualQuote({ section }: QuoteProps) {
           viewport={{ once: true, amount: 0.6 }}
           className="text-center"
         >
-          <div className="bg-white/60 backdrop-blur-[15px] border border-white/50 rounded-[30px] p-12 md:p-16 shadow-[0_15px_35px_rgba(0,0,0,0.08)]">
-            <blockquote className="text-2xl sm:text-4xl md:text-6xl font-libre font-bold leading-tight" style={{color: '#674870'}}>
-              <div className="text-center mb-4">
-                <span className="text-4xl sm:text-6xl md:text-7xl leading-none opacity-30">&ldquo;</span>
-              </div>
-              <span className="block mb-10">{quote}</span>
-              <div className="text-center">
-                <span className="text-4xl sm:text-6xl md:text-7xl leading-none opacity-30">&rdquo;</span>
-              </div>
-            </blockquote>
-          </div>
+          <blockquote className="text-xl sm:text-2xl md:text-3xl font-libre font-bold leading-tight text-white text-center">
+            <span className="text-2xl sm:text-3xl md:text-4xl leading-none opacity-60">&ldquo;</span>
+            <span className="mx-2">{quote}</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl leading-none opacity-60">&rdquo;</span>
+          </blockquote>
         </motion.div>
       </div>
     </section>

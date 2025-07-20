@@ -97,7 +97,7 @@ export default function Header() {
             initial={{ x: 30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="hidden md:flex space-x-10"
+            className="hidden md:flex items-center space-x-10"
           >
             {navigation.map((item) => (
               <div 
@@ -196,6 +196,16 @@ export default function Header() {
                 )}
               </div>
             ))}
+            
+            {/* Appointment Button */}
+            <button
+              onClick={() => {
+                window.open('mailto:info@imyoursis.nl?subject=Afspraak aanvragen&body=Hallo Samora,%0A%0AIk zou graag een afspraak willen maken.%0A%0AWaar kan ik je mee helpen:%0A%0AMijn voorkeur voor datum/tijd:%0A%0AMet vriendelijke groet,', '_blank');
+              }}
+              className="border border-white/40 text-white hover:bg-white hover:text-gray-900 px-4 py-2 font-libre font-light text-sm tracking-wide transition-all duration-300 rounded"
+            >
+              Maak Afspraak
+            </button>
           </motion.nav>
 
           {/* Mobile menu button */}
@@ -235,6 +245,17 @@ export default function Header() {
                   {item.name}
                 </button>
               ))}
+              
+              {/* Mobile Appointment Button */}
+              <button
+                onClick={() => {
+                  window.open('mailto:info@imyoursis.nl?subject=Afspraak aanvragen&body=Hallo Samora,%0A%0AIk zou graag een afspraak willen maken.%0A%0AWaar kan ik je mee helpen:%0A%0AMijn voorkeur voor datum/tijd:%0A%0AMet vriendelijke groet,', '_blank');
+                  setMobileMenuOpen(false);
+                }}
+                className="block w-full text-left border border-white/40 text-white hover:bg-white hover:text-gray-900 font-libre font-light text-sm px-3 py-2 rounded-lg transition-all duration-300 mt-4"
+              >
+                Maak Afspraak
+              </button>
             </div>
           </motion.div>
         )}

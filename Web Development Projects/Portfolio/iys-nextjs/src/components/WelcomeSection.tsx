@@ -91,7 +91,7 @@ export default function WelcomeSection() {
                 </motion.h2>
 
                 <motion.div 
-                  className="text-lg font-dancing italic text-gray-600 mb-4"
+                  className="text-xl font-dancing italic text-gray-600 mb-4"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 1.2, delay: 0.4 }}

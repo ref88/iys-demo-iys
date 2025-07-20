@@ -81,6 +81,7 @@ export default function HeroCarousel() {
   const { currentSlide, setCurrentSlide } = useCarousel();
   const [showFireParticles, setShowFireParticles] = useState(false);
   const [shouldFlicker, setShouldFlicker] = useState(false);
+  const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
   const [particles, setParticles] = useState<Array<{
     id: number;
     delay: number;
@@ -90,30 +91,47 @@ export default function HeroCarousel() {
     shouldFlicker: boolean;
   }>>([]);
 
+  const services = [
+    { title: "Womb Healing & Care", description: "Verbinding met je tweede brein" },
+    { title: "Energetic Healing", description: "Reiki-infused energiebalans" },
+    { title: "Breathwork", description: "Transformerende ademkracht" },
+    { title: "Retreats", description: "Transformerende reizen" },
+    { title: "Workshops", description: "Leren en groeien samen" }
+  ];
+
   // Initialize random particles on mount
   useEffect(() => {
     setParticles(generateRandomParticles());
   }, []);
 
+  // Simple carousel timer - ONLY handles slide changes
   useEffect(() => {
-    const timer = setInterval(() => {
-      // Fire particles activeren 2 seconden voor slide transitie
+    const carouselTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 6000);
+
+    return () => clearInterval(carouselTimer);
+  }, [setCurrentSlide]);
+
+  // Independent fire particles timer
+  useEffect(() => {
+    const fireTimer = setInterval(() => {
       setShowFireParticles(true);
       setShouldFlicker(true);
       
-      // Na 2 seconden: transitie naar volgende slide
       setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
-        // Fire particles uitschakelen na transitie
-        setTimeout(() => {
-          setShowFireParticles(false);
-          setShouldFlicker(false);
-        }, 1000);
+        setShowFireParticles(false);
+        setShouldFlicker(false);
       }, 2000);
-    }, 12000); // Rustiger - was 8000ms, nu 12000ms
+    }, 6000);
 
-    return () => clearInterval(timer);
-  }, [setCurrentSlide]);
+    return () => clearInterval(fireTimer);
+  }, []);
+
+  // Update service index when carousel slide changes - sync exactly with carousel
+  useEffect(() => {
+    setCurrentServiceIndex(currentSlide % services.length);
+  }, [currentSlide, services.length]);
 
   return (
     <div className="relative h-screen min-h-[700px] overflow-hidden bg-gradient-to-br from-black to-gray-900">
@@ -256,15 +274,30 @@ export default function HeroCarousel() {
           Waar jouw baarmoeder gehoord wordt
         </motion.p>
 
-        {/* CTA */}
+        {/* Service Information Display */}
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.2 }}
+          className="h-16 flex items-center justify-center"
         >
-          <button className="border-2 border-white/70 text-white hover:bg-white hover:text-gray-900 px-12 py-4 font-light tracking-wide transition-all duration-500 font-libre">
-            Maak Afspraak
-          </button>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`service-info-${currentServiceIndex}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              className="text-center text-white"
+            >
+              <h3 className="text-xl font-libre font-light mb-2">
+                {services[currentServiceIndex].title}
+              </h3>
+              <p className="text-lg font-dancing italic opacity-80">
+                {services[currentServiceIndex].description}
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
         {/* Bottom zen line */}
@@ -274,6 +307,21 @@ export default function HeroCarousel() {
           transition={{ delay: 1.8, duration: 1.5, ease: "easeInOut" }}
           className="h-[1px] bg-white/60 mt-16"
         />
+      </div>
+
+      {/* Static Service List */}
+      <div className="absolute bottom-8 right-8 z-[6] hidden lg:block">
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 2, duration: 1 }}
+          className="text-white/80 font-libre font-light text-sm tracking-wide"
+        >
+          <p className="text-right leading-relaxed">
+            Womb Healing & Care • Energetic Healing •<br />
+            Breathwork • Retreats • Workshops
+          </p>
+        </motion.div>
       </div>
 
       {/* Indicators verwijderd zoals gewenst */}

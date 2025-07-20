@@ -99,7 +99,7 @@ export default function ReviewsSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-libre font-bold mb-6" style={{color: '#674870'}}>
             Ervaringen
           </h2>
-          <p className="text-lg font-dancing italic text-gray-600 mb-4">
+          <p className="text-xl font-dancing italic text-gray-600 mb-4">
             Authentieke verhalen van vrouwen die hun reis naar genezing hebben ondernomen
           </p>
           <div className="w-12 h-[1px] bg-gradient-to-r from-pink-300 to-transparent mx-auto" />

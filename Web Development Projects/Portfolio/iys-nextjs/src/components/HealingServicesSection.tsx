@@ -58,6 +58,24 @@ const services: Service[] = [
     duration: "45 minuten",
     testimonial: "\"Ik raad haar zeer zeker aan! Ik gun dit elke vrouw!\" - N.T.",
     gradient: "from-teal-100/20 to-cyan-50/10"
+  },
+  {
+    id: 6,
+    title: "Retreats",
+    subtitle: "Transformerende reizen",
+    description: "Duik diep in jouw innerlijke wereld tijdens onze transformerende retreats. In een veilige, ondersteunende omgeving kun je volledig loslaten en jezelf herverbinden met je authentieke zelf. Deze intensieve reizen bieden ruimte voor diepe healing en persoonlijke groei.",
+    duration: "3-5 dagen",
+    testimonial: "\"Een levensveranderende ervaring die ik nooit zal vergeten.\" - A.M.",
+    gradient: "from-indigo-100/20 to-violet-50/10"
+  },
+  {
+    id: 7,
+    title: "Workshops",
+    subtitle: "Leren en groeien samen",
+    description: "Kom samen met andere vrouwen en leer over de kracht van je vrouwelijkheid, baarmoeder en innerlijke wijsheid. Onze workshops combineren praktische technieken met diepgaande inzichten in een ondersteunende groepsetting.",
+    duration: "2-4 uur",
+    testimonial: "\"Zo fijn om te ervaren dat ik niet de enige ben. Veel geleerd!\" - K.V.",
+    gradient: "from-orange-100/20 to-amber-50/10"
   }
 ];
 
@@ -139,7 +157,7 @@ export default function HealingServicesSection() {
                     <h3 className="text-xl sm:text-2xl font-libre font-bold mb-2 transition-colors duration-300" style={{color: '#674870'}}>
                       {service.title}
                     </h3>
-                    <p className="text-lg font-dancing italic text-gray-600 mb-4">
+                    <p className="text-xl font-dancing italic text-gray-600 mb-4">
                       {service.subtitle}
                     </p>
                     <div className="w-12 h-[1px] bg-gradient-to-r from-pink-300 to-transparent group-hover:w-16 transition-all duration-500" />

@@ -54,7 +54,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-libre font-bold" style={{color: '#674870'}}>Im Your SiS</h3>
-                  <p className="text-lg font-dancing italic text-gray-600">Holistische Baarmoederpraktijk</p>
+                  <p className="text-xl font-dancing italic text-gray-600">Holistische Baarmoederpraktijk</p>
                 </div>
               </div>
               
