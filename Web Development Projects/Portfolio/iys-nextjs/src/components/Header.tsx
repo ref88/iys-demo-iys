@@ -1,24 +1,46 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
+const wombHealingServices = [
+  { name: 'Diving Deep Womb Treatment', href: '#services' },
+  { name: 'Fertility Cyclus Massage', href: '#services' },
+  { name: 'Treasure Steam', href: '#services' },
+];
+
+const energeticHealingServices = [
+  { name: 'Restoring Energy Massage', href: '#services' },
+  { name: 'Geboortetrauma', href: '#services' },
+];
+
+const breathworkServices = [
+  { name: 'Breathe in, Breathe out', href: '#services' },
+];
+
+const services = [
+  { name: 'Womb Healing & Care', href: '#services', hasSubmenu: true, submenu: wombHealingServices },
+  { name: 'Energetic Healing', href: '#services', hasSubmenu: true, submenu: energeticHealingServices },
+  { name: 'Breathwork', href: '#services', hasSubmenu: true, submenu: breathworkServices },
+  { name: 'Retreats', href: '#services' },
+  { name: 'Workshops', href: '#services' },
+];
+
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Aanbod', href: '/services' },
-  { name: 'Womb-versie', href: '/womb-versie' },
-  { name: 'Tarieven', href: '/tarieven' },
-  { name: 'Over mij', href: '/over-mij' },
-  { name: 'FAQ', href: '/faq' },
+  { name: 'Services', href: '#services', hasDropdown: true },
+  { name: 'About', href: '#about' },
+  { name: 'Reviews', href: '#reviews' },
+  { name: 'Contact', href: '#contact' },
 ];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,112 +70,166 @@ export default function Header() {
           y: isVisible ? 0 : -100 
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="fixed top-0 left-0 right-0 h-[100px] bg-white/10 backdrop-blur-[20px] border-b border-white/20 shadow-[0_4px_20px_rgba(0,0,0,0.1)] z-[1000] px-12 flex items-center justify-between"
+        className="fixed top-0 left-0 right-0 z-[1000] bg-transparent"
       >
-        {/* Empty space for logo positioning */}
-        <div className="flex-shrink-0 w-[60px]"></div>
-
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex flex-1 items-center justify-center">
-        <div className="flex items-center space-x-12">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-white/90 hover:text-white font-medium text-base px-5 py-3 rounded-lg transition-all duration-300 hover:bg-white/15 hover:-translate-y-0.5 font-libre"
-            >
-              {item.name}
+        <div className="flex items-center justify-between px-8 py-6 lg:px-16 lg:py-8">
+          
+          {/* Left Logo - Ultra Minimal */}
+          <motion.div
+            initial={{ x: -30, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <Link href="/" className="text-white font-libre font-extralight text-lg tracking-wide">
+              IM YOUR SIS
             </Link>
-          ))}
-        </div>
-      </nav>
+          </motion.div>
 
-      {/* Booking Button */}
-      <div className="hidden md:block flex-shrink-0">
-        <motion.a
-          href="#booking"
-          whileHover={{ 
-            scale: 1.05, 
-            y: -2,
-            boxShadow: '0 10px 30px rgba(168, 181, 160, 0.3)'
-          }}
-          whileTap={{ scale: 1.02 }}
-          className="bg-iys-green/20 border-2 border-iys-green/40 text-white px-8 py-4 rounded-[12px] font-semibold text-sm uppercase tracking-wider font-libre transition-all duration-300 hover:bg-iys-green/30 hover:border-iys-green/60"
-        >
-          Boek Jouw Afspraak
-        </motion.a>
-      </div>
-
-      {/* Final Logo with Option A: Glassmorphism Background - Smaller Size */}
-      <motion.div 
-        initial={{ opacity: 1, y: 0 }}
-        animate={{ 
-          opacity: isVisible ? 1 : 0, 
-          y: isVisible ? 0 : -100 
-        }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="fixed top-[50px] left-[50px] z-[1100]"
-      >
-        <Link href="/" className="block relative">
-          <div className="absolute w-[273px] h-[273px] bg-white/32 backdrop-blur-[12px] border border-white/65 rounded-full shadow-[0_6px_25px_rgba(0,0,0,0.12)] top-[16px] left-[26px]"></div>
-          <Image
-            src="/images/logo.png"
-            alt="Im Your SiS Logo"
-            width={329}
-            height={329}
-            style={{ objectFit: 'cover', transform: 'scale(1.164)' }}
-            className="rounded-full relative z-20"
-          />
-        </Link>
-      </motion.div>
-
-      {/* Mobile menu button */}
-      <div className="md:hidden">
-        <button
-          type="button"
-          className="text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? (
-            <XMarkIcon className="h-6 w-6" />
-          ) : (
-            <Bars3Icon className="h-6 w-6" />
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="absolute top-[100px] left-0 right-0 bg-white/10 backdrop-blur-[20px] border-b border-white/20 md:hidden"
-        >
-          <div className="px-6 py-4 space-y-2">
+          {/* Right Navigation - Clean */}
+          <motion.nav
+            initial={{ x: 30, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="hidden md:flex space-x-10"
+          >
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="block text-white/90 hover:text-white font-medium text-base px-3 py-2 rounded-lg transition-colors hover:bg-white/10 font-libre"
-                onClick={() => setMobileMenuOpen(false)}
+              <div 
+                key={item.name} 
+                className="relative"
+                onMouseEnter={() => {
+                  if (item.hasDropdown) {
+                    setServicesDropdownOpen(true);
+                    setActiveSubmenu(null);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (item.hasDropdown) {
+                    setTimeout(() => {
+                      setServicesDropdownOpen(false);
+                      setActiveSubmenu(null);
+                    }, 300);
+                  }
+                }}
               >
-                {item.name}
-              </Link>
+                <Link
+                  href={item.href}
+                  className="text-white/80 hover:text-white font-libre font-light text-sm tracking-wide transition-colors duration-300"
+                >
+                  {item.name}
+                </Link>
+                
+                {/* Services Dropdown */}
+                {item.hasDropdown && servicesDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-64 bg-black/90 backdrop-blur-[20px] border border-white/10 rounded-lg overflow-hidden"
+                    onMouseEnter={() => {
+                      setServicesDropdownOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                      setTimeout(() => {
+                        setServicesDropdownOpen(false);
+                        setActiveSubmenu(null);
+                      }, 300);
+                    }}
+                  >
+                    {services.map((service) => (
+                      <div 
+                        key={service.name}
+                        className="relative"
+                        onMouseEnter={() => {
+                          if (service.hasSubmenu) {
+                            setActiveSubmenu(service.name);
+                          }
+                        }}
+                        onMouseLeave={() => {
+                          // Don't close immediately
+                        }}
+                      >
+                        <Link
+                          href={service.href}
+                          className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 font-libre font-light text-sm transition-colors duration-300"
+                        >
+                          {service.name}
+                          {service.hasSubmenu && <span className="float-right">›</span>}
+                        </Link>
+                        
+                        {/* Submenu */}
+                        {service.hasSubmenu && activeSubmenu === service.name && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute top-0 left-full ml-1 w-64 bg-black/90 backdrop-blur-[20px] border border-white/10 rounded-lg overflow-hidden z-50"
+                            onMouseEnter={() => {
+                              setActiveSubmenu(service.name);
+                            }}
+                            onMouseLeave={() => {
+                              // Don't close immediately
+                            }}
+                          >
+                            {service.submenu?.map((subservice) => (
+                              <Link
+                                key={subservice.name}
+                                href={subservice.href}
+                                className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 font-libre font-light text-sm transition-colors duration-300"
+                              >
+                                {subservice.name}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </div>
             ))}
-            <div className="pt-2">
-              <a
-                href="#booking"
-                className="block text-center bg-iys-green/20 border border-iys-green/40 text-white px-6 py-3 rounded-lg font-semibold text-sm uppercase tracking-wider font-libre transition-colors hover:bg-iys-green/30"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Boek Jouw Afspraak
-              </a>
-            </div>
+          </motion.nav>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              type="button"
+              className="text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-6 w-6" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" />
+              )}
+            </button>
           </div>
-        </motion.div>
-      )}
-    </motion.header>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-[20px] border-b border-white/10 md:hidden"
+          >
+            <div className="px-6 py-4 space-y-2">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block text-white/80 hover:text-white font-libre font-light text-sm px-3 py-2 rounded-lg transition-colors hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </motion.header>
     </>
   );
 }

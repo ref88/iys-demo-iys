@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCarousel } from '@/contexts/CarouselContext';
-import Header from '@/components/Header';
 
 interface Slide {
   id: number;
@@ -77,7 +76,7 @@ const fireParticles = [
   { id: 'fire6', position: { bottom: 6, left: 85 } },
 ];
 
-export default function HeroCarousel() {
+export default function OrigineleHero() {
   const { currentSlide, setCurrentSlide } = useCarousel();
   const [showFireParticles, setShowFireParticles] = useState(false);
   const [shouldFlicker, setShouldFlicker] = useState(false);
@@ -117,8 +116,6 @@ export default function HeroCarousel() {
 
   return (
     <div className="relative h-screen min-h-[700px] overflow-hidden bg-gradient-to-br from-black to-gray-900">
-      {/* Header */}
-      <Header />
       {/* Ambient Glow Effect */}
       <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] animate-ambient-pulse pointer-events-none z-0">
         <div className="absolute inset-0 bg-gradient-radial from-iys-pink/8 via-transparent to-transparent" 

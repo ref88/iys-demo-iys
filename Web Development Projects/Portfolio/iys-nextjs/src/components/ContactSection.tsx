@@ -71,7 +71,7 @@ export default function ContactSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-libre font-bold text-gray-800 mb-6">
+          <h2 className="text-4xl md:text-5xl font-libre font-bold mb-6" style={{color: '#674870'}}>
             Vragen?
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -98,7 +98,7 @@ export default function ContactSection() {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-green-600 text-2xl">✓</span>
                 </div>
-                <h3 className="text-xl font-libre font-bold text-gray-800 mb-2">
+                <h3 className="text-xl font-libre font-bold mb-2" style={{color: '#674870'}}>
                   Bericht verzonden!
                 </h3>
                 <p className="text-gray-600">
@@ -173,7 +173,7 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gray-800 hover:bg-gray-700 text-white py-3 px-6 rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full btn-fill text-white py-3 px-6 rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Verzenden...' : 'Verzend'}
                 </button>
@@ -205,7 +205,7 @@ export default function ContactSection() {
                 {/* Quote overlay */}
                 <div className="absolute bottom-4 left-4 right-4">
                   <p className="text-white font-dancing text-lg italic text-center drop-shadow-lg">
-                    "In elke kaart ligt een boodschap van wijsheid"
+                    &quot;In elke kaart ligt een boodschap van wijsheid&quot;
                   </p>
                 </div>
               </div>
@@ -231,7 +231,7 @@ export default function ContactSection() {
                 {/* Address overlay */}
                 <div className="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-[10px] rounded-lg p-3">
                   <p className="text-sm font-medium text-gray-800">Locatie & Routebeschrijving</p>
-                  <button className="mt-1 text-xs bg-gray-800 text-white px-3 py-1 rounded-full hover:bg-gray-700 transition-colors duration-200">
+                  <button className="mt-1 text-xs btn-fill text-white px-3 py-1 rounded-full">
                     Bekijk kaart
                   </button>
                 </div>

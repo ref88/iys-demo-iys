@@ -90,7 +90,7 @@ export default function HealingServicesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-libre font-bold text-transparent bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 bg-clip-text mb-6">
+          <h2 className="text-4xl md:text-5xl font-libre font-bold mb-6" style={{color: '#674870'}}>
             Healing Services
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -131,7 +131,7 @@ export default function HealingServicesSection() {
                 <div className="relative z-10">
                   {/* Service Header */}
                   <div className="mb-6">
-                    <h3 className="text-2xl font-libre font-bold text-gray-800 mb-2 group-hover:text-gray-900 transition-colors duration-300">
+                    <h3 className="text-2xl font-libre font-bold mb-2 transition-colors duration-300" style={{color: '#674870'}}>
                       {service.title}
                     </h3>
                     <p className="text-lg font-dancing italic text-gray-600 mb-4">
@@ -163,7 +163,7 @@ export default function HealingServicesSection() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white py-3 px-6 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="w-full btn-fill text-white py-3 px-6 rounded-full font-medium shadow-lg hover:shadow-xl"
                   >
                     Boek Sessie
                   </motion.button>
@@ -194,7 +194,7 @@ export default function HealingServicesSection() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white/80 backdrop-blur-[10px] border border-white/60 text-gray-800 py-4 px-8 rounded-full font-libre font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="btn-fill text-white py-4 px-8 rounded-full font-libre font-medium text-lg shadow-lg hover:shadow-xl"
           >
             Boek Kennismakingsgesprek
           </motion.button>

@@ -39,7 +39,7 @@ const getDailyQuote = (section: keyof typeof quotePools): string => {
   return quotes[index];
 };
 
-export default function ContextualQuote({ section }: QuoteProps) {
+export default function ContextualQuoteZen({ section }: QuoteProps) {
   const [quote, setQuote] = useState<string>('');
   const { currentSlide } = useCarousel();
 
@@ -74,61 +74,46 @@ export default function ContextualQuote({ section }: QuoteProps) {
   if (!quote) return null;
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
-      {/* Subtle background particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-pink-200/30 rounded-full"
-            style={{
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 12}%`,
-              animation: `particleFloat ${8 + i * 2}s ease-in-out infinite`
-            }}
-          />
-        ))}
+    <section className="py-20 bg-white relative overflow-hidden">
+      {/* Zen line */}
+      <div className="flex justify-center mb-8">
+        <motion.div
+          initial={{ width: 0, opacity: 0 }}
+          whileInView={{ width: 60, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 1.5, ease: "easeInOut" }}
+          viewport={{ once: true }}
+          className="h-[1px] bg-gray-400"
+        />
       </div>
 
-      {/* Carousel-synced particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-1.5 h-1.5 ${getParticleColor()} rounded-full transition-all duration-2000 ease-in-out`}
-            style={{
-              top: `${20 + i * 15}%`,
-              right: `${10 + i * 12}%`,
-              animation: `particleFloat ${10 + i * 3}s ease-in-out infinite`,
-              animationDelay: `${i * 0.8}s`
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ 
-            duration: 0.8,
+            duration: 1.2,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
           viewport={{ once: true, amount: 0.6 }}
           className="text-center"
         >
-          <div className="bg-white/60 backdrop-blur-[15px] border border-white/50 rounded-[30px] p-12 md:p-16 shadow-[0_15px_35px_rgba(0,0,0,0.08)]">
-            <blockquote className="text-4xl md:text-6xl font-libre font-bold leading-tight" style={{color: '#674870'}}>
-              <div className="text-center mb-4">
-                <span className="text-6xl md:text-7xl leading-none opacity-30">&ldquo;</span>
-              </div>
-              <span className="block mb-10">{quote}</span>
-              <div className="text-center">
-                <span className="text-6xl md:text-7xl leading-none opacity-30">&rdquo;</span>
-              </div>
-            </blockquote>
-          </div>
+          <blockquote className="text-3xl md:text-5xl font-libre font-light leading-relaxed text-gray-800">
+            <span className="text-5xl md:text-6xl leading-none opacity-20 text-gray-400">&ldquo;</span>
+            <span className="block -mt-4 mb-2">{quote}</span>
+            <span className="text-5xl md:text-6xl leading-none opacity-20 text-gray-400 float-right -mt-8">&rdquo;</span>
+          </blockquote>
         </motion.div>
+      </div>
+
+      {/* Bottom zen line */}
+      <div className="flex justify-center mt-8">
+        <motion.div
+          initial={{ width: 0, opacity: 0 }}
+          whileInView={{ width: 40, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 1.5, ease: "easeInOut" }}
+          viewport={{ once: true }}
+          className="h-[1px] bg-gray-400"
+        />
       </div>
     </section>
   );

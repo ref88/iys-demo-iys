@@ -103,3 +103,71 @@ body {
     opacity: 0.9;
   }
 }
+
+@keyframes geometricPulse {
+  0%, 100% { 
+    opacity: 0.2;
+    transform: scale(1) rotate(0deg);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(1.05) rotate(2deg);
+  }
+}
+
+@keyframes breathingMeditation {
+  0%, 100% { 
+    transform: scale(1) translateY(0);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.02) translateY(-2px);
+    opacity: 1;
+  }
+}
+
+@keyframes sacredFloat {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.3;
+  }
+  33% { 
+    transform: translateY(-8px) rotate(1deg);
+    opacity: 0.6;
+  }
+  66% { 
+    transform: translateY(-4px) rotate(-1deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes constellationPulse {
+  0%, 100% { 
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  25% { 
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  75% { 
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+/* Button fill animation */
+.btn-fill {
+  background: linear-gradient(90deg, #039B8A 0%, #05CAB6 0%, #05CAB6 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.4s ease-in-out;
+}
+
+.btn-fill:hover {
+  background-position: 0% 0;
+}

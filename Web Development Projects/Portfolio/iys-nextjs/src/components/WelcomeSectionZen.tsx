@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useCarousel } from '@/contexts/CarouselContext';
 import { useRef } from 'react';
 
-export default function WelcomeSection() {
+export default function WelcomeSectionZen() {
   const { getCurrentGradient } = useCarousel();
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -17,29 +17,25 @@ export default function WelcomeSection() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -125]);
   
   return (
-    <section ref={containerRef} className="py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
-      {/* Subtle background particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-pink-200/30 rounded-full"
-            style={{
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 12}%`,
-              animation: `particleFloat ${8 + i * 2}s ease-in-out infinite`
-            }}
-          />
-        ))}
+    <section ref={containerRef} className="py-24 bg-white">
+      {/* Zen line */}
+      <div className="flex justify-center mb-16">
+        <motion.div
+          initial={{ width: 0, opacity: 0 }}
+          whileInView={{ width: 80, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 1.5, ease: "easeInOut" }}
+          viewport={{ once: true }}
+          className="h-[1px] bg-gray-400"
+        />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="bg-white/60 backdrop-blur-[15px] border border-white/50 rounded-[30px] p-8 md:p-12 shadow-[0_15px_35px_rgba(0,0,0,0.08)]"
+          className="space-y-16"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Image Column */}
@@ -51,7 +47,7 @@ export default function WelcomeSection() {
                 viewport={{ once: true }}
                 className="relative group"
               >
-                <div className="relative overflow-hidden rounded-[25px] h-[600px] shadow-[0_20px_60px_rgba(0,0,0,0.1)]">
+                <div className="relative overflow-hidden rounded-lg h-[600px]">
                   <motion.div style={{ y }}>
                     <Image
                       src="/images/sis_yoni_egg.jpeg"
@@ -61,14 +57,7 @@ export default function WelcomeSection() {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </motion.div>
-                  
-                  {/* Luxury glow effect */}
-                  <div className="absolute -inset-2 bg-gradient-to-r from-pink-100/20 via-purple-100/20 to-pink-100/20 rounded-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-xl" />
                 </div>
-                
-                <figcaption className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-[10px] rounded-[15px] px-4 py-2 text-white text-sm border border-white/20">
-                  Sacred feminine healing tool
-                </figcaption>
               </motion.figure>
             </div>
 
@@ -82,18 +71,17 @@ export default function WelcomeSection() {
                 className="space-y-6"
               >
                 <motion.h2 
-                  className="text-4xl md:text-5xl font-libre font-bold mb-6"
-                  style={{color: '#674870'}}
+                  className="text-5xl md:text-6xl font-libre font-extralight text-center text-gray-800 mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2, delay: 0.2 }}
                   viewport={{ once: true }}
                 >
-                  Dear SiS
+                  Dear <span className="font-light text-gray-600">SiS</span>
                 </motion.h2>
 
                 <motion.div 
-                  className="text-lg font-dancing italic text-gray-600 mb-4"
+                  className="text-sm text-gray-600 font-light tracking-[0.3em] uppercase text-center mb-12"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 1.2, delay: 0.4 }}
@@ -102,33 +90,31 @@ export default function WelcomeSection() {
                   Where your womb finds its voice
                 </motion.div>
 
-                <div className="w-12 h-[1px] bg-gradient-to-r from-pink-300 to-transparent mb-6" />
-
                 <motion.div 
-                  className="space-y-4 text-gray-700 leading-relaxed"
+                  className="max-w-xl mx-auto space-y-6 text-gray-700 leading-relaxed text-center"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2, delay: 0.6 }}
                   viewport={{ once: true }}
                 >
-                  <p>
+                  <p className="text-lg font-light">
                     Mijn missie begint bij de baarmoeder. Als baarmoedertherapeut is het mijn doel om je te ondersteunen bij het ontdekken van je innerlijke kracht.
                   </p>
                   
-                  <p>
+                  <p className="text-lg font-light">
                     Met de grootste liefde en zorg ben ik hier om je te begeleiden op jouw reis naar heling van binnenuit. Of het nu via een een-op-een sessie, workshop of retreat is, ik help je vinden wat het beste bij jou past.
                   </p>
                   
-                  <div className="py-4">
-                    <p className="text-gray-600 italic">
+                  <div className="py-6">
+                    <p className="text-xl font-light text-gray-600 italic">
                       You are not alone in this.
                     </p>
-                    <p className="font-medium text-gray-800 mt-1">
+                    <p className="text-xl font-light text-gray-800 mt-2">
                       After all, I am your sis.
                     </p>
                   </div>
                   
-                  <p>
+                  <p className="text-lg font-light">
                     Bekijk het aanbod en laat weten wat ik voor je kan betekenen.
                   </p>
                 </motion.div>
@@ -138,10 +124,10 @@ export default function WelcomeSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
                   viewport={{ once: true }}
-                  className="pt-6 space-y-2"
+                  className="pt-8 text-center space-y-2"
                 >
-                  <p className="text-gray-600">Love,</p>
-                  <cite className="text-lg font-libre font-medium" style={{color: '#674870'}}>
+                  <p className="text-gray-600 font-light">Love,</p>
+                  <cite className="text-xl font-libre font-light text-gray-800">
                     Samora Indira Schurman
                   </cite>
                 </motion.div>
@@ -149,6 +135,17 @@ export default function WelcomeSection() {
             </div>
           </div>
         </motion.div>
+      </div>
+
+      {/* Bottom zen line */}
+      <div className="flex justify-center mt-16">
+        <motion.div
+          initial={{ width: 0, opacity: 0 }}
+          whileInView={{ width: 60, opacity: 1 }}
+          transition={{ delay: 1.0, duration: 1.5, ease: "easeInOut" }}
+          viewport={{ once: true }}
+          className="h-[1px] bg-gray-400"
+        />
       </div>
     </section>
   );

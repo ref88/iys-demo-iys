@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface CarouselContextType {
   currentSlide: number;
-  setCurrentSlide: (slide: number) => void;
+  setCurrentSlide: (slide: number | ((prev: number) => number)) => void;
   getCurrentSlideColor: () => string;
   getCurrentGradient: () => string;
 }
