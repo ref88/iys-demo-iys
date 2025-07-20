@@ -96,12 +96,29 @@ export default function ReviewsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-libre font-bold text-transparent bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 bg-clip-text mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-libre font-bold mb-6" style={{color: '#674870'}}>
             Ervaringen
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Authentieke verhalen van vrouwen die hun reis naar genezing hebben ondernomen.
+          <p className="text-lg font-dancing italic text-gray-600 mb-4">
+            Authentieke verhalen van vrouwen die hun reis naar genezing hebben ondernomen
           </p>
+          <div className="w-12 h-[1px] bg-gradient-to-r from-pink-300 to-transparent mx-auto" />
+          
+          {/* Review Highlights */}
+          <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm">
+            <div className="flex items-center space-x-2">
+              <span className="text-yellow-400 text-lg">★</span>
+              <span className="text-gray-700 font-medium">5.0 gemiddelde waardering</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-green-500">✓</span>
+              <span className="text-gray-700 font-medium">100% aanraden</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-purple-500">💜</span>
+              <span className="text-gray-700 font-medium">{reviews.length} reviews</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Reviews Grid */}
@@ -129,8 +146,8 @@ export default function ReviewsSection() {
 
                 {/* Review Content */}
                 <div className="mb-6">
-                  <p className="text-gray-700 leading-relaxed mb-4 font-medium">
-                    "{review.excerpt}"
+                  <p className="text-base leading-6 sm:leading-relaxed text-gray-700 mb-4 font-medium">
+                    &quot;{review.excerpt}&quot;
                   </p>
                   
                   {expandedReview === review.id && (
@@ -141,7 +158,7 @@ export default function ReviewsSection() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-gray-600 leading-relaxed text-sm">
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                         {review.fullReview}
                       </p>
                     </motion.div>
@@ -186,7 +203,7 @@ export default function ReviewsSection() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white py-4 px-8 rounded-full font-libre font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="btn-fill text-white py-4 px-8 rounded-xl font-libre font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
             Begin Jouw Reis
           </motion.button>

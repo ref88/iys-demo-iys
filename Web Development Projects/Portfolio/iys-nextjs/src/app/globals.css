@@ -162,7 +162,7 @@ body {
 
 /* Button fill animation */
 .btn-fill {
-  background: linear-gradient(90deg, #039B8A 0%, #05CAB6 0%, #05CAB6 100%);
+  background: linear-gradient(90deg, #674870 0%, #8B5A8C 0%, #8B5A8C 100%);
   background-size: 200% 100%;
   background-position: 100% 0;
   transition: background-position 0.4s ease-in-out;

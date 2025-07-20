@@ -63,6 +63,11 @@ const services: Service[] = [
 
 export default function HealingServicesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [expandedService, setExpandedService] = useState<number | null>(null);
+
+  const toggleService = (id: number) => {
+    setExpandedService(expandedService === id ? null : id);
+  };
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
@@ -90,7 +95,7 @@ export default function HealingServicesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-libre font-bold mb-6" style={{color: '#674870'}}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-libre font-bold mb-6" style={{color: '#674870'}}>
             Healing Services
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
@@ -131,7 +136,7 @@ export default function HealingServicesSection() {
                 <div className="relative z-10">
                   {/* Service Header */}
                   <div className="mb-6">
-                    <h3 className="text-2xl font-libre font-bold mb-2 transition-colors duration-300" style={{color: '#674870'}}>
+                    <h3 className="text-xl sm:text-2xl font-libre font-bold mb-2 transition-colors duration-300" style={{color: '#674870'}}>
                       {service.title}
                     </h3>
                     <p className="text-lg font-dancing italic text-gray-600 mb-4">
@@ -142,9 +147,44 @@ export default function HealingServicesSection() {
 
                   {/* Service Details */}
                   <div className="mb-6">
-                    <p className="text-gray-700 leading-relaxed mb-4">
-                      {service.description}
-                    </p>
+                    <div className="text-base leading-6 sm:leading-relaxed text-gray-700 mb-4">
+                      <motion.div
+                        initial={false}
+                        animate={{ height: expandedService === service.id ? 'auto' : 'auto' }}
+                        transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        className="overflow-hidden"
+                      >
+                        {expandedService === service.id ? (
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.1 }}
+                          >
+                            {service.description}
+                          </motion.p>
+                        ) : (
+                          <motion.p
+                            initial={{ opacity: 1 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {service.description.substring(0, 120)}...
+                          </motion.p>
+                        )}
+                      </motion.div>
+                    </div>
+                    
+                    {service.description.length > 120 && (
+                      <motion.button
+                        onClick={() => toggleService(service.id)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="text-sm text-purple-600 hover:text-purple-700 font-medium mb-4 transition-colors duration-200"
+                      >
+                        {expandedService === service.id ? 'Minder lezen' : 'Lees verder'}
+                      </motion.button>
+                    )}
+                    
                     <div className="flex justify-center mb-4">
                       <span className="bg-gray-100/70 px-4 py-2 rounded-full text-sm text-gray-600">
                         {service.duration}
@@ -159,14 +199,27 @@ export default function HealingServicesSection() {
                     </p>
                   </div>
 
-                  {/* CTA Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full btn-fill text-white py-3 px-6 rounded-full font-medium shadow-lg hover:shadow-xl"
-                  >
-                    Boek Sessie
-                  </motion.button>
+                  {/* CTA Buttons */}
+                  <div className="flex flex-col gap-3">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full btn-fill text-white py-3 px-6 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+                      onClick={() => {
+                        // Direct booking logic
+                        window.open(`mailto:info@imyoursis.nl?subject=Booking: ${service.title}&body=Hallo Samora,%0A%0AIk zou graag een afspraak willen maken voor ${service.title}.%0A%0AMijn voorkeur voor datum/tijd:%0A%0AHeb je nog vragen voor mij?%0A%0AMet vriendelijke groet,`, '_blank');
+                      }}
+                    >
+                      Boek Nu
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-white/70 border border-gray-200 text-gray-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-all duration-300"
+                    >
+                      Meer Info
+                    </motion.button>
+                  </div>
                 </div>
 
                 {/* Subtle glow effect */}
@@ -191,13 +244,25 @@ export default function HealingServicesSection() {
           <p className="text-lg text-gray-600 mb-6">
             Niet zeker welke behandeling het beste bij je past?
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-fill text-white py-4 px-8 rounded-full font-libre font-medium text-lg shadow-lg hover:shadow-xl"
-          >
-            Boek Kennismakingsgesprek
-          </motion.button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-fill text-white py-4 px-8 rounded-xl font-libre font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => {
+                window.open('mailto:info@imyoursis.nl?subject=Kennismakingsgesprek&body=Hallo Samora,%0A%0AIk zou graag een kennismakingsgesprek inplannen om te bespreken welke behandeling het beste bij mij past.%0A%0AMijn voorkeur voor datum/tijd:%0A%0AKorte beschrijving van waar ik mee bezig ben:%0A%0AMet vriendelijke groet,', '_blank');
+              }}
+            >
+              Boek Kennismakingsgesprek
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-white/70 border border-gray-200 text-gray-700 py-4 px-8 rounded-xl font-libre font-medium text-lg hover:bg-white/90 transition-all duration-300"
+            >
+              Bekijk Tarieven
+            </motion.button>
+          </div>
           <p className="text-sm text-gray-500 mt-4">
             Neem contact op voor tarieven
           </p>

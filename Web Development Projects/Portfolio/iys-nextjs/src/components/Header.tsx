@@ -35,6 +35,13 @@ const navigation = [
   { name: 'Contact', href: '#contact' },
 ];
 
+const scrollToSection = (href: string) => {
+  const element = document.querySelector(href);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -111,12 +118,12 @@ export default function Header() {
                   }
                 }}
               >
-                <Link
-                  href={item.href}
+                <button
+                  onClick={() => scrollToSection(item.href)}
                   className="text-white/80 hover:text-white font-libre font-light text-sm tracking-wide transition-colors duration-300"
                 >
                   {item.name}
-                </Link>
+                </button>
                 
                 {/* Services Dropdown */}
                 {item.hasDropdown && servicesDropdownOpen && (
@@ -149,13 +156,13 @@ export default function Header() {
                           // Don't close immediately
                         }}
                       >
-                        <Link
-                          href={service.href}
-                          className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 font-libre font-light text-sm transition-colors duration-300"
+                        <button
+                          onClick={() => scrollToSection(service.href)}
+                          className="block w-full text-left px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 font-libre font-light text-sm transition-colors duration-300"
                         >
                           {service.name}
                           {service.hasSubmenu && <span className="float-right">›</span>}
-                        </Link>
+                        </button>
                         
                         {/* Submenu */}
                         {service.hasSubmenu && activeSubmenu === service.name && (
@@ -173,13 +180,13 @@ export default function Header() {
                             }}
                           >
                             {service.submenu?.map((subservice) => (
-                              <Link
+                              <button
                                 key={subservice.name}
-                                href={subservice.href}
-                                className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 font-libre font-light text-sm transition-colors duration-300"
+                                onClick={() => scrollToSection(subservice.href)}
+                                className="block w-full text-left px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 font-libre font-light text-sm transition-colors duration-300"
                               >
                                 {subservice.name}
-                              </Link>
+                              </button>
                             ))}
                           </motion.div>
                         )}
@@ -217,14 +224,16 @@ export default function Header() {
           >
             <div className="px-6 py-4 space-y-2">
               {navigation.map((item) => (
-                <Link
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="block text-white/80 hover:text-white font-libre font-light text-sm px-3 py-2 rounded-lg transition-colors hover:bg-white/10"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    scrollToSection(item.href);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left text-white/80 hover:text-white font-libre font-light text-sm px-3 py-2 rounded-lg transition-colors hover:bg-white/10"
                 >
                   {item.name}
-                </Link>
+                </button>
               ))}
             </div>
           </motion.div>

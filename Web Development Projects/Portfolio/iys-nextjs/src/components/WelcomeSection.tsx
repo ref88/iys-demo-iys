@@ -2,11 +2,9 @@
 
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useCarousel } from '@/contexts/CarouselContext';
 import { useRef } from 'react';
 
 export default function WelcomeSection() {
-  const { getCurrentGradient } = useCarousel();
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -82,7 +80,7 @@ export default function WelcomeSection() {
                 className="space-y-6"
               >
                 <motion.h2 
-                  className="text-4xl md:text-5xl font-libre font-bold mb-6"
+                  className="text-3xl sm:text-4xl md:text-5xl font-libre font-bold mb-6"
                   style={{color: '#674870'}}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +103,7 @@ export default function WelcomeSection() {
                 <div className="w-12 h-[1px] bg-gradient-to-r from-pink-300 to-transparent mb-6" />
 
                 <motion.div 
-                  className="space-y-4 text-gray-700 leading-relaxed"
+                  className="space-y-4 text-base leading-6 sm:leading-relaxed text-gray-700"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2, delay: 0.6 }}
@@ -138,12 +136,33 @@ export default function WelcomeSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
                   viewport={{ once: true }}
-                  className="pt-6 space-y-2"
+                  className="pt-6 space-y-4"
                 >
-                  <p className="text-gray-600">Love,</p>
-                  <cite className="text-lg font-libre font-medium" style={{color: '#674870'}}>
-                    Samora Indira Schurman
-                  </cite>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button 
+                      className="btn-fill text-white px-6 py-3 rounded-xl font-medium transition-all duration-300"
+                      onClick={() => {
+                        document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      Bekijk aanbod
+                    </button>
+                    <button 
+                      className="bg-white/70 border border-gray-200 text-gray-700 px-6 py-3 rounded-xl font-medium hover:bg-white/90 transition-all duration-300"
+                      onClick={() => {
+                        window.open('mailto:info@imyoursis.nl?subject=Afspraak aanvragen&body=Hallo Samora,%0A%0AIk zou graag een afspraak willen maken.%0A%0AWaar kan ik je mee helpen:%0A%0AMijn voorkeur voor datum/tijd:%0A%0AMet vriendelijke groet,', '_blank');
+                      }}
+                    >
+                      Plan afspraak
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <p className="text-gray-600">Love,</p>
+                    <cite className="text-base sm:text-lg font-libre font-medium" style={{color: '#674870'}}>
+                      Samora Indira Schurman
+                    </cite>
+                  </div>
                 </motion.div>
               </motion.div>
             </div>

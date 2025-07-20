@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useCarousel } from '@/contexts/CarouselContext';
-import Image from 'next/image';
 
 interface QuoteProps {
   section: 'welcome' | 'services' | 'about' | 'contact';
@@ -118,13 +117,13 @@ export default function ContextualQuote({ section }: QuoteProps) {
           className="text-center"
         >
           <div className="bg-white/60 backdrop-blur-[15px] border border-white/50 rounded-[30px] p-12 md:p-16 shadow-[0_15px_35px_rgba(0,0,0,0.08)]">
-            <blockquote className="text-4xl md:text-6xl font-libre font-bold leading-tight" style={{color: '#674870'}}>
+            <blockquote className="text-2xl sm:text-4xl md:text-6xl font-libre font-bold leading-tight" style={{color: '#674870'}}>
               <div className="text-center mb-4">
-                <span className="text-6xl md:text-7xl leading-none opacity-30">&ldquo;</span>
+                <span className="text-4xl sm:text-6xl md:text-7xl leading-none opacity-30">&ldquo;</span>
               </div>
               <span className="block mb-10">{quote}</span>
               <div className="text-center">
-                <span className="text-6xl md:text-7xl leading-none opacity-30">&rdquo;</span>
+                <span className="text-4xl sm:text-6xl md:text-7xl leading-none opacity-30">&rdquo;</span>
               </div>
             </blockquote>
           </div>

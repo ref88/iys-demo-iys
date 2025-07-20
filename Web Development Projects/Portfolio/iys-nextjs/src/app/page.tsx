@@ -22,15 +22,22 @@ export default function Home() {
         <HeroOption2 />
         
         <ContextualQuote section="welcome" />
-        <WelcomeSection />
+        <div id="about">
+          <WelcomeSection />
+        </div>
         <ContextualQuote section="services" />
-        <HealingServicesSection />
+        <div id="services">
+          <HealingServicesSection />
+        </div>
         <ContextualQuote section="contact" />
-        <ReviewsSection />
+        <div id="reviews">
+          <ReviewsSection />
+        </div>
         <ContextualQuote section="about" />
         
-        
-        <ContactSection />
+        <div id="contact">
+          <ContactSection />
+        </div>
         <Footer />
         
       </main>
