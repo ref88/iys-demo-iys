@@ -6,7 +6,7 @@ import { useCarousel } from '@/contexts/CarouselContext';
 import Image from 'next/image';
 
 interface QuoteProps {
-  section: 'welcome' | 'services' | 'about' | 'contact';
+  section: 'welcome' | 'services' | 'about' | 'contact' | 'reviews';
 }
 
 const quotePools = {
@@ -27,6 +27,12 @@ const quotePools = {
     "The courage to reach out is the courage to heal",
     "You don't have to walk this path alone",
     "Trauma passes on. So does healing"
+  ],
+  reviews: [
+    "Healing happens in community",
+    "Your story matters and inspires others",
+    "In sharing our truth, we find our power",
+    "Every woman's journey is sacred"
   ]
 };
 
@@ -66,7 +72,8 @@ export default function ContextualQuoteZen({ section }: QuoteProps) {
       welcome: '/images/sis_hands_circle.jpeg',
       services: '/images/sis_reiki.jpg',
       about: '/images/sis_meditation.jpg',
-      contact: '/images/sis_breathwork.jpg'
+      contact: '/images/sis_breathwork.jpg',
+      reviews: '/images/sis_heart.jpeg'
     };
     return images[section] || '/images/sis_heart.jpeg';
   };
