@@ -27,7 +27,7 @@ export default function Home() {
         </div>
         <ContextualQuote section="services" />
         <div id="services">
-          <HealingServicesSection />
+          <HealingServicesSection version="eventFocus" />
         </div>
         <ContextualQuote section="contact" />
         <div id="reviews">
