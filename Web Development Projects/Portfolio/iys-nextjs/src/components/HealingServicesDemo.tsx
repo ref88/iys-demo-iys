@@ -25,48 +25,63 @@ const versionInfo = {
 };
 
 export default function HealingServicesDemo() {
-  const [currentVersion, setCurrentVersion] = useState<VersionType>('eventFocus');
-
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Version Selector */}
-      <div className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 py-4">
+      {/* Header */}
+      <div className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 py-6">
         <div className="max-w-6xl mx-auto px-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Healing Services - Version Tester</h1>
-          <div className="flex flex-wrap gap-4">
-            {(Object.keys(versionInfo) as VersionType[]).map((version) => (
-              <motion.button
-                key={version}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setCurrentVersion(version)}
-                className={`
-                  px-6 py-3 rounded-xl font-medium text-white transition-all duration-300
-                  ${currentVersion === version 
-                    ? `bg-gradient-to-r ${versionInfo[version].color} shadow-lg` 
-                    : 'bg-gray-400 hover:bg-gray-500'
-                  }
-                `}
-              >
-                <div className="text-left">
-                  <div className="font-semibold">{versionInfo[version].name}</div>
-                  <div className="text-sm opacity-90">{versionInfo[version].description}</div>
-                </div>
-              </motion.button>
-            ))}
-          </div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Healing Services - All Versions</h1>
+          <p className="text-gray-600">Vergelijk alle 3 tab-versies direct onder elkaar</p>
         </div>
       </div>
 
-      {/* Current Version Display */}
-      <motion.div
-        key={currentVersion}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <HealingServicesSection version={currentVersion} />
-      </motion.div>
+      {/* All Versions Display */}
+      <div className="space-y-16 pb-16">
+        {(Object.keys(versionInfo) as VersionType[]).map((version, index) => (
+          <div key={version} className="relative">
+            {/* Version Header */}
+            <div className="max-w-6xl mx-auto px-6 py-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className={`
+                  inline-flex items-center gap-4 px-8 py-4 rounded-2xl text-white font-bold text-xl
+                  bg-gradient-to-r ${versionInfo[version].color} shadow-xl mb-8
+                `}
+              >
+                <span className="text-3xl">
+                  {version === 'eventFocus' && '📅'}
+                  {version === 'experiences' && '🌟'}  
+                  {version === 'sacred' && '🕊️'}
+                </span>
+                <div>
+                  <div className="font-libre text-xl">{versionInfo[version].name}</div>
+                  <div className="text-sm opacity-90 font-normal">{versionInfo[version].description}</div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Version Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <HealingServicesSection version={version} />
+            </motion.div>
+
+            {/* Divider (except for last version) */}
+            {index < Object.keys(versionInfo).length - 1 && (
+              <div className="max-w-6xl mx-auto px-6 py-8">
+                <div className="border-t border-gray-300 opacity-30"></div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
