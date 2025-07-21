@@ -81,19 +81,19 @@ export default function ContextualQuoteZen({ section }: QuoteProps) {
   if (!quote) return null;
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      {/* Zen line */}
-      <div className="flex justify-center mb-8">
-        <motion.div
-          initial={{ width: 0, opacity: 0 }}
-          whileInView={{ width: 60, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 1.5, ease: "easeInOut" }}
-          viewport={{ once: true }}
-          className="h-[1px] bg-gray-400"
-        />
-      </div>
-
+    <section className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-8 relative z-10">
+        {/* Top zen line */}
+        <div className="flex justify-center mb-12">
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ width: 120, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 1.5, ease: "easeInOut" }}
+            viewport={{ once: true }}
+            className="h-[1px] bg-stone-300"
+          />
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -104,23 +104,23 @@ export default function ContextualQuoteZen({ section }: QuoteProps) {
           viewport={{ once: true, amount: 0.6 }}
           className="text-center"
         >
-          <blockquote className="text-3xl md:text-5xl font-libre font-light leading-relaxed text-gray-800">
-            <span className="text-5xl md:text-6xl leading-none opacity-20 text-gray-400">&ldquo;</span>
-            <span className="block -mt-4 mb-2">{quote}</span>
-            <span className="text-5xl md:text-6xl leading-none opacity-20 text-gray-400 float-right -mt-8">&rdquo;</span>
+          <blockquote className="text-3xl md:text-4xl lg:text-5xl font-light leading-relaxed text-stone-800 tracking-wide">
+            <span className="text-4xl md:text-5xl lg:text-6xl leading-none opacity-20 text-stone-400">&ldquo;</span>
+            <span className="block -mt-2 mb-2 px-4">{quote}</span>
+            <span className="text-4xl md:text-5xl lg:text-6xl leading-none opacity-20 text-stone-400 float-right -mt-6">&rdquo;</span>
           </blockquote>
         </motion.div>
-      </div>
 
-      {/* Bottom zen line */}
-      <div className="flex justify-center mt-8">
-        <motion.div
-          initial={{ width: 0, opacity: 0 }}
-          whileInView={{ width: 40, opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1.5, ease: "easeInOut" }}
-          viewport={{ once: true }}
-          className="h-[1px] bg-gray-400"
-        />
+        {/* Bottom zen line */}
+        <div className="flex justify-center mt-12 clear-both">
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ width: 80, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 1.5, ease: "easeInOut" }}
+            viewport={{ once: true }}
+            className="h-[1px] bg-stone-300"
+          />
+        </div>
       </div>
     </section>
   );
